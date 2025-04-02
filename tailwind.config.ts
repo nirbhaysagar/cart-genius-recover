@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,6 +62,19 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				shopify: {
+					DEFAULT: '#008060',
+					50: '#f3f9f6',
+					100: '#e6f2ec',
+					200: '#c1e0d0',
+					300: '#9ecdb3',
+					400: '#78b996',
+					500: '#52a479',
+					600: '#2c8e5c',
+					700: '#00693e',
+					800: '#004c2d',
+					900: '#00301c',
 				}
 			},
 			borderRadius: {
@@ -84,11 +98,24 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'fade-in': {
+					'0%': { opacity: '0' },
+					'100%': { opacity: '1' }
+				},
+				'slide-in': {
+					'0%': { transform: 'translateY(10px)', opacity: '0' },
+					'100%': { transform: 'translateY(0)', opacity: '1' }
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'fade-in': 'fade-in 0.3s ease-out',
+				'slide-in': 'slide-in 0.3s ease-out'
+			},
+			fontFamily: {
+				'inter': ['Inter', 'sans-serif']
 			}
 		}
 	},
