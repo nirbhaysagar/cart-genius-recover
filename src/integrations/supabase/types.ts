@@ -9,7 +9,105 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      abandoned_carts: {
+        Row: {
+          abandoned_at: string
+          cart_value: number
+          id: string
+          items: Json
+          recovered: boolean
+          recovery_email_opened: boolean
+          recovery_email_sent: boolean
+          recovery_email_sent_at: string | null
+          user_email: string
+        }
+        Insert: {
+          abandoned_at?: string
+          cart_value: number
+          id?: string
+          items: Json
+          recovered?: boolean
+          recovery_email_opened?: boolean
+          recovery_email_sent?: boolean
+          recovery_email_sent_at?: string | null
+          user_email: string
+        }
+        Update: {
+          abandoned_at?: string
+          cart_value?: number
+          id?: string
+          items?: Json
+          recovered?: boolean
+          recovery_email_opened?: boolean
+          recovery_email_sent?: boolean
+          recovery_email_sent_at?: string | null
+          user_email?: string
+        }
+        Relationships: []
+      }
+      recovery_campaigns: {
+        Row: {
+          channels: string[]
+          created_at: string
+          id: string
+          message_templates: Json
+          name: string
+          status: string
+          time_triggers: string[]
+          updated_at: string
+        }
+        Insert: {
+          channels?: string[]
+          created_at?: string
+          id?: string
+          message_templates?: Json
+          name: string
+          status: string
+          time_triggers?: string[]
+          updated_at?: string
+        }
+        Update: {
+          channels?: string[]
+          created_at?: string
+          id?: string
+          message_templates?: Json
+          name?: string
+          status?: string
+          time_triggers?: string[]
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      subscriptions: {
+        Row: {
+          amount: number
+          created_at: string
+          expires_at: string
+          id: string
+          plan_type: string
+          status: string
+          user_email: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          expires_at: string
+          id?: string
+          plan_type: string
+          status: string
+          user_email: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          expires_at?: string
+          id?: string
+          plan_type?: string
+          status?: string
+          user_email?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

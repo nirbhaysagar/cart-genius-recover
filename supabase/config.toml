@@ -1,1 +1,8 @@
+
 project_id = "yfagfnpgcbptjiwwoxca"
+
+[functions.send-recovery-email]
+verify_jwt = true
+
+[functions.process-payment]
+verify_jwt = true

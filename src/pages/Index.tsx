@@ -9,7 +9,7 @@ const Index = () => {
   }, []);
 
   // Redirect to the dashboard
-  return <Navigate to="/" replace />;
+  return <Navigate to="/dashboard" replace />;
 };
 
 export default Index;
