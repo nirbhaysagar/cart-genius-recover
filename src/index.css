@@ -1,5 +1,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=SF+Pro:wght@400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -8,91 +10,91 @@
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 222 47% 11%;
+    --foreground: 209 23% 22%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
+    --card-foreground: 209 23% 22%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 11%;
+    --popover-foreground: 209 23% 22%;
 
-    --primary: 154 64% 25%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 163 60% 25%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222 47% 11.2%;
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 209 23% 22%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 8% 56%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 220 14% 96%;
+    --accent-foreground: 209 23% 22%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 154 61% 21%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 163 60% 25%;
 
     --radius: 0.5rem;
 
-    --sidebar-background: 210 40% 98%;
-    --sidebar-foreground: 222 47% 11%;
-    --sidebar-primary: 154 64% 25%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 210 40% 96%;
-    --sidebar-accent-foreground: 222 47% 11%;
-    --sidebar-border: 214.3 31.8% 91.4%;
-    --sidebar-ring: 154 61% 21%;
+    --sidebar-background: 220 14% 98%;
+    --sidebar-foreground: 209 23% 22%;
+    --sidebar-primary: 163 60% 25%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 14% 94%;
+    --sidebar-accent-foreground: 209 23% 22%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 163 60% 25%;
   }
 
   .dark {
-    --background: 222 47% 11%;
-    --foreground: 210 40% 98%;
+    --background: 209 23% 10%;
+    --foreground: 0 0% 98%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 209 23% 12%;
+    --card-foreground: 0 0% 98%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 209 23% 12%;
+    --popover-foreground: 0 0% 98%;
 
-    --primary: 154 59% 33%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 163 60% 30%;
+    --primary-foreground: 0 0% 98%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 209 23% 16%;
+    --secondary-foreground: 0 0% 98%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 209 23% 16%;
+    --muted-foreground: 220 8% 70%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 209 23% 16%;
+    --accent-foreground: 0 0% 98%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 154 59% 33%;
+    --border: 209 23% 16%;
+    --input: 209 23% 16%;
+    --ring: 163 60% 30%;
 
-    --sidebar-background: 222 47% 10%;
-    --sidebar-foreground: 210 40% 98%;
-    --sidebar-primary: 154 59% 33%;
+    --sidebar-background: 209 23% 9%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: 163 60% 30%;
     --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 217.2 32.6% 17.5%;
-    --sidebar-accent-foreground: 210 40% 98%;
-    --sidebar-border: 217.2 32.6% 17.5%;
-    --sidebar-ring: 154 59% 33%;
+    --sidebar-accent: 209 23% 14%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 209 23% 16%;
+    --sidebar-ring: 163 60% 30%;
   }
 }
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-border font-shopify;
   }
   body {
-    @apply bg-background text-foreground font-inter;
+    @apply bg-background text-foreground;
   }
   
   /* Custom scrollbar styles */
@@ -112,7 +114,7 @@
 
 @layer components {
   .dashboard-card {
-    @apply p-6 rounded-lg border bg-card text-card-foreground shadow-sm transition-all hover:shadow-md;
+    @apply p-6 rounded-lg border bg-card text-card-foreground shadow-shopify-card transition-all hover:shadow-shopify-card-hover;
   }
   
   .stat-value {
@@ -124,10 +126,82 @@
   }
   
   .trend-up {
-    @apply text-green-500 flex items-center gap-1;
+    @apply text-shopify-600 flex items-center gap-1;
   }
   
   .trend-down {
     @apply text-red-500 flex items-center gap-1;
+  }
+
+  /* Button styles */
+  .btn-shopify {
+    @apply bg-shopify text-white hover:bg-shopify-600 active:bg-shopify-700 transition-colors;
+  }
+
+  /* Chart animations */
+  .chart-container {
+    @apply relative overflow-hidden;
+  }
+
+  .chart-animate-in {
+    animation: chart-grow 0.8s ease-out forwards;
+  }
+
+  /* Card hover effects */
+  .card-hover {
+    @apply transition-all duration-200 hover:translate-y-[-2px] hover:shadow-shopify-card-hover;
+  }
+
+  /* Interactive elements */
+  .interactive-element {
+    @apply transition-all duration-200 hover:bg-secondary active:bg-secondary/80;
+  }
+
+  /* Pill badges */
+  .status-pill {
+    @apply px-2 py-1 rounded-full text-xs font-medium inline-block;
+  }
+  
+  .status-pill-success {
+    @apply bg-shopify-100 text-shopify-700;
+  }
+  
+  .status-pill-warning {
+    @apply bg-amber-100 text-amber-800;
+  }
+  
+  .status-pill-neutral {
+    @apply bg-gray-100 text-gray-800;
+  }
+
+  /* Page transitions */
+  .page-transition {
+    @apply animate-fade-in;
+  }
+
+  /* Section transitions */
+  .section-transition {
+    @apply animate-slide-in;
+  }
+
+  /* Table styles */
+  .table-modern {
+    @apply w-full text-sm;
+  }
+  
+  .table-modern thead tr {
+    @apply border-b bg-muted/50 text-left;
+  }
+  
+  .table-modern th {
+    @apply p-3 font-medium text-muted-foreground;
+  }
+  
+  .table-modern td {
+    @apply p-3;
+  }
+  
+  .table-modern tbody tr {
+    @apply border-b hover:bg-muted/50 transition-colors;
   }
 }

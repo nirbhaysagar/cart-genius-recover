@@ -16,6 +16,9 @@ import AITools from "./pages/AITools";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 
+// Import App CSS for animations
+import './App.css';
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -31,7 +34,18 @@ const App = () => {
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
           <Toaster />
-          <Sonner />
+          <Sonner 
+            position="top-right"
+            toastOptions={{
+              style: {
+                background: 'white',
+                border: '1px solid #e2e8f0',
+                boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+                borderRadius: '0.5rem',
+              },
+              className: 'animate-slide-in-from-right',
+            }}
+          />
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Navigate to="/dashboard" replace />} />
