@@ -1,6 +1,7 @@
 
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/components/ui/use-toast";
+import { Json } from "@/integrations/supabase/types";
 
 const sampleProducts = [
   { id: "p1", name: "Ultra HD Smart TV", price: 699.99, image: "/placeholder.svg" },
@@ -69,7 +70,7 @@ export async function generateDemoAbandonedCarts(count = 10) {
       carts.push({
         user_email: email,
         cart_value: cartValue,
-        items,
+        items: items as unknown as Json,
         abandoned_at,
         recovered,
         recovery_email_sent,
