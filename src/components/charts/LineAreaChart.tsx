@@ -30,6 +30,7 @@ interface LineAreaChartProps {
   showGrid?: boolean;
   showTooltip?: boolean;
   showLegend?: boolean;
+  className?: string; // Added className prop
 }
 
 export function LineAreaChart({
@@ -41,9 +42,10 @@ export function LineAreaChart({
   showGrid = true,
   showTooltip = true,
   showLegend = true,
+  className, // Added className prop
 }: LineAreaChartProps) {
   return (
-    <ResponsiveContainer width="100%" height={height}>
+    <ResponsiveContainer width="100%" height={height} className={className}>
       <AreaChart data={data} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
         {showGrid && <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f0f0f0" />}
         

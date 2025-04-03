@@ -31,6 +31,7 @@ interface BarChartProps {
   showLegend?: boolean;
   layout?: "vertical" | "horizontal";
   barSize?: number;
+  className?: string; // Added className prop
 }
 
 export function BarChart({
@@ -44,9 +45,10 @@ export function BarChart({
   showLegend = true,
   layout = "horizontal",
   barSize = 20,
+  className, // Added className prop
 }: BarChartProps) {
   return (
-    <ResponsiveContainer width="100%" height={height}>
+    <ResponsiveContainer width="100%" height={height} className={className}>
       <RechartsBarChart
         data={data}
         layout={layout}

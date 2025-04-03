@@ -27,11 +27,16 @@ export function subscribeToTable({
   // Reuse existing channel if available
   if (activeChannels[channelKey]) {
     const existingChannel = activeChannels[channelKey];
-    existingChannel.on('postgres_changes', { 
-      event: event, 
-      schema: 'public', 
-      table: table 
-    }, handler);
+    // Use the on method with correct typing for postgres_changes
+    existingChannel.on(
+      'postgres_changes' as any, // Type assertion to bypass TypeScript error
+      { 
+        event: event, 
+        schema: 'public', 
+        table: table 
+      }, 
+      handler
+    );
     
     return () => {
       existingChannel.unsubscribe();
@@ -42,11 +47,15 @@ export function subscribeToTable({
   // Create a new channel
   const channel = supabase
     .channel(`public:${table}:${event}`)
-    .on('postgres_changes', { 
-      event: event, 
-      schema: 'public', 
-      table: table 
-    }, handler)
+    .on(
+      'postgres_changes' as any, // Type assertion to bypass TypeScript error 
+      { 
+        event: event, 
+        schema: 'public', 
+        table: table 
+      }, 
+      handler
+    )
     .subscribe();
     
   activeChannels[channelKey] = channel;
