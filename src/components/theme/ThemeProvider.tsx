@@ -2,6 +2,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { Sun, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
 
 type Theme = "light" | "dark";
 
@@ -29,6 +30,7 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     
     return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
   });
+  const { toast } = useToast();
 
   useEffect(() => {
     const root = document.documentElement;
@@ -43,7 +45,13 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
   }, [theme]);
 
   const toggleTheme = () => {
-    setTheme(prev => prev === "light" ? "dark" : "light");
+    const newTheme = theme === "light" ? "dark" : "light";
+    setTheme(newTheme);
+    toast({
+      title: `${newTheme.charAt(0).toUpperCase() + newTheme.slice(1)} mode activated`,
+      description: `Your interface is now in ${newTheme} mode.`,
+      duration: 2000,
+    });
   };
 
   return (
@@ -61,10 +69,13 @@ export function ThemeToggle() {
       variant="ghost" 
       size="icon" 
       onClick={toggleTheme} 
-      className="theme-toggle"
+      className="theme-toggle transition-all hover:bg-primary/10"
       aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}
     >
-      {theme === 'light' ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
+      {theme === 'light' ? 
+        <Moon className="h-5 w-5 transition-transform hover:rotate-12" /> : 
+        <Sun className="h-5 w-5 transition-transform hover:rotate-12" />
+      }
     </Button>
   );
 }

@@ -5,6 +5,7 @@ import { AppHeader } from "./AppHeader";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { useLocation } from "react-router-dom";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface AppLayoutProps {
   children: ReactNode;
@@ -33,16 +34,17 @@ const getPageTitle = (pathname: string): string => {
 export function AppLayout({ children }: AppLayoutProps) {
   const location = useLocation();
   const title = getPageTitle(location.pathname);
+  const isMobile = useIsMobile();
   
   return (
     <ThemeProvider>
       <SidebarProvider>
-        <div className="flex min-h-screen w-full">
+        <div className="flex min-h-screen w-full flex-col lg:flex-row">
           <AppSidebar />
           <div className="flex flex-col flex-1">
             <AppHeader title={title} />
             <main className="flex-1 overflow-auto">
-              <div className="container mx-auto p-6">
+              <div className={`container mx-auto p-4 ${isMobile ? '' : 'p-6'}`}>
                 {children}
               </div>
             </main>

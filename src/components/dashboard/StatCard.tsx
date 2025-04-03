@@ -20,29 +20,25 @@ interface StatCardProps {
 export function StatCard({ title, value, change, icon, className, style }: StatCardProps) {
   return (
     <Card className={cn("dashboard-card card-hover overflow-hidden", className)} style={style}>
-      <CardContent className="p-0 relative">
-        {/* Background pattern for visual interest */}
-        <div className="absolute top-0 right-0 w-24 h-24 opacity-5 -mr-8 -mt-8">
-          <svg width="100%" height="100%" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <path d="M50 0 L100 50 L50 100 L0 50 Z" fill="currentColor" />
-          </svg>
-        </div>
+      <CardContent className="p-4 relative">
+        {/* Background gradient for visual interest instead of diamond shape */}
+        <div className="absolute top-0 right-0 bottom-0 w-1/3 opacity-5 bg-gradient-to-l from-current to-transparent" />
         
         <div className="flex justify-between items-start relative">
           <div className="space-y-2">
-            <p className="stat-label">{title}</p>
-            <p className="stat-value">{value}</p>
+            <p className="stat-label text-xs md:text-sm">{title}</p>
+            <p className="stat-value text-xl md:text-2xl">{value}</p>
             
             {change && (
               <div className={change.direction === "up" ? "trend-up" : "trend-down"}>
                 {change.direction === "up" ? <ArrowUpRight className="h-4 w-4" /> : <ArrowDownRight className="h-4 w-4" />}
-                <span className="text-sm font-medium">{change.value} {change.period && <span className="text-muted-foreground text-xs">({change.period})</span>}</span>
+                <span className="text-xs md:text-sm font-medium">{change.value} {change.period && <span className="text-muted-foreground text-xs">({change.period})</span>}</span>
               </div>
             )}
           </div>
           
           {icon && (
-            <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center transform transition-transform hover:scale-110">
+            <div className="h-8 w-8 md:h-10 md:w-10 rounded-full bg-primary/10 flex items-center justify-center transform transition-transform hover:scale-110">
               {icon}
             </div>
           )}
