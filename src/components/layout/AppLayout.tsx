@@ -4,6 +4,7 @@ import { AppSidebar } from "./AppSidebar";
 import { AppHeader } from "./AppHeader";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { useLocation } from "react-router-dom";
+import { ThemeProvider } from "@/components/theme/ThemeProvider";
 
 interface AppLayoutProps {
   children: ReactNode;
@@ -34,18 +35,20 @@ export function AppLayout({ children }: AppLayoutProps) {
   const title = getPageTitle(location.pathname);
   
   return (
-    <SidebarProvider>
-      <div className="flex min-h-screen w-full">
-        <AppSidebar />
-        <div className="flex flex-col flex-1">
-          <AppHeader title={title} />
-          <main className="flex-1 overflow-auto">
-            <div className="container mx-auto p-6">
-              {children}
-            </div>
-          </main>
+    <ThemeProvider>
+      <SidebarProvider>
+        <div className="flex min-h-screen w-full">
+          <AppSidebar />
+          <div className="flex flex-col flex-1">
+            <AppHeader title={title} />
+            <main className="flex-1 overflow-auto">
+              <div className="container mx-auto p-6">
+                {children}
+              </div>
+            </main>
+          </div>
         </div>
-      </div>
-    </SidebarProvider>
+      </SidebarProvider>
+    </ThemeProvider>
   );
 }

@@ -10,6 +10,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { SidebarTrigger } from "@/components/ui/sidebar";
+import { ThemeToggle } from "@/components/theme/ThemeProvider";
 
 export function AppHeader({ title }: { title: string }) {
   return (
@@ -33,29 +34,31 @@ export function AppHeader({ title }: { title: string }) {
             />
           </div>
           
+          <ThemeToggle />
+          
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon" className="relative">
+              <Button variant="ghost" size="icon" className="relative hover:bg-muted/50">
                 <Bell className="h-5 w-5" />
                 <span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-destructive"></span>
                 <span className="sr-only">Notifications</span>
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-80">
-              <div className="p-4">
-                <p className="text-sm font-medium">Notifications</p>
+            <DropdownMenuContent align="end" className="w-80 shadow-lg backdrop-blur-sm">
+              <div className="p-4 border-b">
+                <p className="text-sm font-semibold">Notifications</p>
               </div>
-              <DropdownMenuItem className="flex flex-col items-start cursor-pointer gap-1 p-4">
+              <DropdownMenuItem className="flex flex-col items-start cursor-pointer gap-1 p-4 hover:bg-muted/50">
                 <div className="text-sm font-medium">New abandoned cart</div>
                 <div className="text-xs text-muted-foreground">Customer alex@example.com abandoned their cart with $129.99 worth of items</div>
                 <div className="text-xs text-muted-foreground">12 minutes ago</div>
               </DropdownMenuItem>
-              <DropdownMenuItem className="flex flex-col items-start cursor-pointer gap-1 p-4">
+              <DropdownMenuItem className="flex flex-col items-start cursor-pointer gap-1 p-4 hover:bg-muted/50">
                 <div className="text-sm font-medium">Campaign success</div>
                 <div className="text-xs text-muted-foreground">Your "Summer Sale Recovery" campaign has a 24% recovery rate!</div>
                 <div className="text-xs text-muted-foreground">1 hour ago</div>
               </DropdownMenuItem>
-              <DropdownMenuItem className="p-2 text-center text-xs text-muted-foreground">
+              <DropdownMenuItem className="p-2 text-center text-xs text-muted-foreground border-t hover:bg-muted/50">
                 View all notifications
               </DropdownMenuItem>
             </DropdownMenuContent>

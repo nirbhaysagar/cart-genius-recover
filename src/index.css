@@ -1,8 +1,4 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=SF+Pro:wght@400;500;600&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -10,198 +6,108 @@
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 209 23% 22%;
-
+    --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
-    --card-foreground: 209 23% 22%;
-
+    --card-foreground: 240 10% 3.9%;
     --popover: 0 0% 100%;
-    --popover-foreground: 209 23% 22%;
-
-    --primary: 163 60% 25%;
-    --primary-foreground: 0 0% 100%;
-
-    --secondary: 220 14% 96%;
-    --secondary-foreground: 209 23% 22%;
-
-    --muted: 220 14% 96%;
-    --muted-foreground: 220 8% 56%;
-
-    --accent: 220 14% 96%;
-    --accent-foreground: 209 23% 22%;
-
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
-
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 163 60% 25%;
-
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 155 100% 25%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 155 100% 25%;
     --radius: 0.5rem;
-
-    --sidebar-background: 220 14% 98%;
-    --sidebar-foreground: 209 23% 22%;
-    --sidebar-primary: 163 60% 25%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 220 14% 94%;
-    --sidebar-accent-foreground: 209 23% 22%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 163 60% 25%;
+    
+    /* Sidebar specific variables */
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 240 10% 3.9%;
+    --sidebar-primary: 155 100% 25%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%; 
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 240 5.9% 90%;
+    --sidebar-ring: 155 100% 25%;
   }
 
   .dark {
-    --background: 209 23% 10%;
+    --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
-
-    --card: 209 23% 12%;
+    --card: 240 10% 3.9%;
     --card-foreground: 0 0% 98%;
-
-    --popover: 209 23% 12%;
+    --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
-
-    --primary: 163 60% 30%;
+    --primary: 155 70% 33%;
     --primary-foreground: 0 0% 98%;
-
-    --secondary: 209 23% 16%;
+    --secondary: 240 3.7% 15.9%;
     --secondary-foreground: 0 0% 98%;
-
-    --muted: 209 23% 16%;
-    --muted-foreground: 220 8% 70%;
-
-    --accent: 209 23% 16%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
     --accent-foreground: 0 0% 98%;
-
-    --destructive: 0 62% 30%;
+    --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-
-    --border: 209 23% 16%;
-    --input: 209 23% 16%;
-    --ring: 163 60% 30%;
-
-    --sidebar-background: 209 23% 9%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 155 70% 33%;
+    
+    /* Sidebar specific variables */
+    --sidebar-background: 240 10% 3.9%;
     --sidebar-foreground: 0 0% 98%;
-    --sidebar-primary: 163 60% 30%;
+    --sidebar-primary: 155 70% 33%;
     --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 209 23% 14%;
+    --sidebar-accent: 240 3.7% 15.9%;
     --sidebar-accent-foreground: 0 0% 98%;
-    --sidebar-border: 209 23% 16%;
-    --sidebar-ring: 163 60% 30%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 155 70% 33%;
   }
 }
 
 @layer base {
   * {
-    @apply border-border font-shopify;
-  }
-  body {
-    @apply bg-background text-foreground;
+    @apply border-border;
   }
   
-  /* Custom scrollbar styles */
+  body {
+    @apply bg-background text-foreground font-shopify;
+    font-feature-settings: "ss01", "ss02", "cv01", "cv02", "cv03";
+  }
+  
+  /* Shopify-inspired focus styles */
+  *:focus-visible {
+    @apply outline-none ring-2 ring-shopify ring-offset-2 ring-offset-background;
+  }
+  
+  /* Improved scrollbar */
   ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+    @apply w-2 h-2;
   }
   
   ::-webkit-scrollbar-track {
-    @apply bg-secondary;
+    @apply bg-transparent;
   }
   
   ::-webkit-scrollbar-thumb {
-    @apply bg-muted-foreground/40 rounded-full hover:bg-muted-foreground/60 transition-colors;
-  }
-}
-
-@layer components {
-  .dashboard-card {
-    @apply p-6 rounded-lg border bg-card text-card-foreground shadow-shopify-card transition-all hover:shadow-shopify-card-hover;
+    @apply bg-muted-foreground/30 rounded-full hover:bg-muted-foreground/50;
   }
   
-  .stat-value {
-    @apply text-3xl font-bold;
-  }
-  
-  .stat-label {
-    @apply text-sm font-medium text-muted-foreground;
-  }
-  
-  .trend-up {
-    @apply text-shopify-600 flex items-center gap-1;
-  }
-  
-  .trend-down {
-    @apply text-red-500 flex items-center gap-1;
-  }
-
-  /* Button styles */
-  .btn-shopify {
-    @apply bg-shopify text-white hover:bg-shopify-600 active:bg-shopify-700 transition-colors;
-  }
-
-  /* Chart animations */
-  .chart-container {
-    @apply relative overflow-hidden;
-  }
-
-  .chart-animate-in {
-    animation: chart-grow 0.8s ease-out forwards;
-  }
-
-  /* Card hover effects */
-  .card-hover {
-    @apply transition-all duration-200 hover:translate-y-[-2px] hover:shadow-shopify-card-hover;
-  }
-
-  /* Interactive elements */
-  .interactive-element {
-    @apply transition-all duration-200 hover:bg-secondary active:bg-secondary/80;
-  }
-
-  /* Pill badges */
-  .status-pill {
-    @apply px-2 py-1 rounded-full text-xs font-medium inline-block;
-  }
-  
-  .status-pill-success {
-    @apply bg-shopify-100 text-shopify-700;
-  }
-  
-  .status-pill-warning {
-    @apply bg-amber-100 text-amber-800;
-  }
-  
-  .status-pill-neutral {
-    @apply bg-gray-100 text-gray-800;
-  }
-
-  /* Page transitions */
+  /* Animation utilities */
   .page-transition {
-    @apply animate-fade-in;
+    @apply transition-all duration-300 ease-in-out;
   }
-
-  /* Section transitions */
+  
   .section-transition {
-    @apply animate-slide-in;
-  }
-
-  /* Table styles */
-  .table-modern {
-    @apply w-full text-sm;
+    @apply transition-all duration-300 ease-in-out delay-100;
   }
   
-  .table-modern thead tr {
-    @apply border-b bg-muted/50 text-left;
-  }
-  
-  .table-modern th {
-    @apply p-3 font-medium text-muted-foreground;
-  }
-  
-  .table-modern td {
-    @apply p-3;
-  }
-  
-  .table-modern tbody tr {
-    @apply border-b hover:bg-muted/50 transition-colors;
+  .element-transition {
+    @apply transition-all duration-200 ease-in-out;
   }
 }

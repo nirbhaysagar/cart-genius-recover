@@ -5,6 +5,16 @@
   height: 100%;
 }
 
+/* CSS Variables for theme customization */
+:root {
+  --card-hover-y: -5px;
+  --transition-speed: 0.3s;
+  --shopify-success: #008060;
+  --shopify-warning: #ffc453;
+  --shopify-error: #d82c0d;
+  --shopify-surface: #f6f6f7;
+}
+
 /* Page transitions */
 .page-enter {
   opacity: 0;
@@ -26,21 +36,36 @@
   transition: opacity 300ms;
 }
 
-/* Card animations */
+/* Enhanced Card animations */
 .card-enter {
   opacity: 0;
-  transform: scale(0.97);
+  transform: scale(0.97) translateY(10px);
 }
 
 .card-enter-active {
   opacity: 1;
-  transform: scale(1);
-  transition: opacity 300ms, transform 300ms;
+  transform: scale(1) translateY(0);
+  transition: opacity 300ms, transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* Chart animations */
 .chart-bar {
   transition: height 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.chart-animate-in {
+  animation: chart-intro 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes chart-intro {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Shopify-inspired utility classes */
@@ -60,10 +85,74 @@
 
 .shopify-card:hover {
   box-shadow: 0 0 0 1px rgba(63, 63, 68, 0.05), 0 4px 8px 0 rgba(63, 63, 68, 0.15);
-  transform: translateY(-2px);
+  transform: translateY(var(--card-hover-y));
+}
+
+/* Enhanced dashboard cards */
+.dashboard-card {
+  @apply p-6 transition-all duration-300;
+}
+
+.card-hover {
+  @apply hover:shadow-shopify-card-hover hover:-translate-y-1;
+}
+
+/* Status pills styling */
+.status-pill {
+  @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium;
+}
+
+.status-pill-success {
+  @apply bg-shopify-50 text-shopify-700;
+}
+
+.status-pill-warning {
+  @apply bg-amber-50 text-amber-700;
+}
+
+.status-pill-neutral {
+  @apply bg-gray-100 text-gray-700;
+}
+
+/* Stats styling */
+.stat-label {
+  @apply text-sm font-medium text-muted-foreground mb-1;
+}
+
+.stat-value {
+  @apply text-2xl font-bold tracking-tight;
+}
+
+.trend-up {
+  @apply flex items-center text-green-600 gap-0.5;
+}
+
+.trend-down {
+  @apply flex items-center text-red-600 gap-0.5;
+}
+
+/* Table styling */
+.table-modern {
+  @apply w-full text-sm;
+}
+
+.table-modern th {
+  @apply py-3 px-4 text-left font-medium text-muted-foreground border-b;
+}
+
+.table-modern td {
+  @apply py-3 px-4 border-b border-muted align-middle;
+}
+
+.table-modern tr:hover {
+  @apply bg-muted/50;
 }
 
 /* Button animations */
+.btn-shopify {
+  @apply bg-shopify hover:bg-shopify-600 text-white transition-colors;
+}
+
 .btn-pulse {
   animation: button-pulse 2s infinite;
 }
@@ -78,4 +167,90 @@
   100% {
     box-shadow: 0 0 0 0 rgba(0, 128, 96, 0);
   }
+}
+
+/* Progress bars */
+.progress-bar {
+  @apply h-2 rounded-full bg-gray-200 overflow-hidden;
+}
+
+.progress-bar-fill {
+  @apply h-full bg-shopify rounded-full animate-progress;
+}
+
+/* Enhanced animations */
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out forwards;
+}
+
+.animate-slide-in {
+  animation: slide-in 0.5s ease-out forwards;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Shopify theme toggle styles */
+.theme-toggle {
+  @apply p-2 rounded-full hover:bg-muted transition-colors;
+}
+
+/* Tooltip styles */
+.tooltip {
+  @apply invisible absolute z-50 rounded bg-neutral-900 px-2 py-1 text-xs text-white opacity-0 transition-opacity group-hover:visible group-hover:opacity-100 dark:bg-white dark:text-neutral-900;
+}
+
+/* Hover animation class */
+.hover-lift {
+  transition: transform var(--transition-speed) ease-in-out;
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+}
+
+/* Shimmer effect for loading states */
+.shimmer {
+  background: linear-gradient(90deg, #f0f0f0 0%, #f8f8f8 50%, #f0f0f0 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Widget styles for drag-and-drop */
+.widget {
+  @apply rounded-lg border bg-card text-card-foreground shadow-sm;
+}
+
+.widget-dragging {
+  @apply opacity-50 shadow-lg;
+}
+
+.widget-ghost {
+  @apply bg-muted border-dashed;
 }

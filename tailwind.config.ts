@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -127,6 +126,26 @@ export default {
 					'0%': { height: '0', opacity: '0' },
 					'100%': { height: 'var(--chart-height)', opacity: '1' }
 				},
+				'float-slow': {
+					'0%, 100%': { transform: 'translateY(0)' },
+					'50%': { transform: 'translateY(-8px)' }
+				},
+				'scale-in-out': {
+					'0%, 100%': { transform: 'scale(1)' },
+					'50%': { transform: 'scale(1.05)' }
+				},
+				'shine': {
+					'0%': { backgroundPosition: '-200% 0' },
+					'100%': { backgroundPosition: '200% 0' }
+				},
+				'flicker': {
+					'0%, 100%': { opacity: '1' },
+					'50%': { opacity: '0.8' }
+				},
+				'progress': {
+					'0%': { width: '0%' },
+					'100%': { width: 'var(--progress-width, 100%)' }
+				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
@@ -137,7 +156,12 @@ export default {
 				'zoom-in': 'zoom-in 0.3s ease-out',
 				'pulse-gentle': 'pulse-gentle 2s infinite ease-in-out',
 				'float': 'float 3s infinite ease-in-out',
-				'chart-grow': 'chart-grow 0.5s ease-out forwards'
+				'chart-grow': 'chart-grow 0.5s ease-out forwards',
+				'float-slow': 'float-slow 6s infinite ease-in-out',
+				'scale-in-out': 'scale-in-out 2s infinite ease-in-out',
+				'shine': 'shine 2s linear infinite',
+				'flicker': 'flicker 3s infinite ease-in-out',
+				'progress': 'progress 1.5s ease-out forwards',
 			},
 			fontFamily: {
 				'inter': ['Inter', 'sans-serif'],
@@ -145,7 +169,9 @@ export default {
 			},
 			boxShadow: {
 				'shopify-card': '0 0 0 1px rgba(63, 63, 68, 0.05), 0 1px 3px 0 rgba(63, 63, 68, 0.15)',
-				'shopify-card-hover': '0 0 0 1px rgba(63, 63, 68, 0.05), 0 3px 6px 0 rgba(63, 63, 68, 0.15)'
+				'shopify-card-hover': '0 0 0 1px rgba(63, 63, 68, 0.05), 0 3px 6px 0 rgba(63, 63, 68, 0.15)',
+				'shopify-highlight': '0 0 0 2px #008060',
+				'shopify-glow': '0 0 15px rgba(0, 128, 96, 0.5)'
 			}
 		}
 	},
