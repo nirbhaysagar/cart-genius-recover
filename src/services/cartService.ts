@@ -27,7 +27,10 @@ export async function getAbandonedCarts(): Promise<AbandonedCart[]> {
     const { data, error } = await supabase
       .from('abandoned_carts')
       .select('*')
-      .order('abandoned_at', { ascending: false });
+      .order('abandoned_at', { ascending: false }) as { 
+        data: AbandonedCart[] | null;
+        error: Error | null;
+      };
 
     if (error) {
       toast({
@@ -52,7 +55,10 @@ export async function addAbandonedCart(cart: Omit<AbandonedCart, 'id'>): Promise
       .from('abandoned_carts')
       .insert([cart])
       .select()
-      .single();
+      .single() as {
+        data: AbandonedCart | null;
+        error: Error | null;
+      };
 
     if (error) {
       toast({
@@ -81,7 +87,9 @@ export async function markCartAsRecovered(cartId: string): Promise<boolean> {
     const { error } = await supabase
       .from('abandoned_carts')
       .update({ recovered: true })
-      .eq('id', cartId);
+      .eq('id', cartId) as {
+        error: Error | null;
+      };
 
     if (error) {
       toast({

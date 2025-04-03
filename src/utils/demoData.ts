@@ -81,7 +81,9 @@ export async function generateDemoAbandonedCarts(count = 10) {
     // Insert the carts into the database
     const { error } = await supabase
       .from('abandoned_carts')
-      .insert(carts);
+      .insert(carts) as {
+        error: Error | null;
+      };
       
     if (error) {
       console.error('Error generating demo carts:', error);
@@ -143,7 +145,9 @@ export async function generateDemoCampaigns(count = 3) {
     // Insert the campaigns into the database
     const { error } = await supabase
       .from('recovery_campaigns')
-      .insert(campaigns);
+      .insert(campaigns) as {
+        error: Error | null;
+      };
       
     if (error) {
       console.error('Error generating demo campaigns:', error);

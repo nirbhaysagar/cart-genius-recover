@@ -18,7 +18,10 @@ export async function getCampaigns(): Promise<RecoveryCampaign[]> {
     const { data, error } = await supabase
       .from('recovery_campaigns')
       .select('*')
-      .order('created_at', { ascending: false });
+      .order('created_at', { ascending: false }) as {
+        data: RecoveryCampaign[] | null;
+        error: Error | null;
+      };
 
     if (error) {
       toast({
@@ -43,7 +46,10 @@ export async function createCampaign(campaign: Omit<RecoveryCampaign, 'id' | 'cr
       .from('recovery_campaigns')
       .insert([campaign])
       .select()
-      .single();
+      .single() as {
+        data: RecoveryCampaign | null;
+        error: Error | null;
+      };
 
     if (error) {
       toast({
@@ -72,7 +78,9 @@ export async function updateCampaignStatus(campaignId: string, status: "active" 
     const { error } = await supabase
       .from('recovery_campaigns')
       .update({ status, updated_at: new Date().toISOString() })
-      .eq('id', campaignId);
+      .eq('id', campaignId) as {
+        error: Error | null;
+      };
 
     if (error) {
       toast({
