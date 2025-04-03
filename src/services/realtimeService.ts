@@ -1,84 +1,90 @@
 
-import { supabase } from "@/integrations/supabase/client";
-import { RealtimeChannel } from "@supabase/supabase-js";
+import { supabase } from '@/integrations/supabase/client';
+import { RealtimeChannel } from '@supabase/supabase-js';
 
-export type DataChangeHandler = (payload: any) => void;
-
-interface RealtimeSubscription {
+interface SubscribeToTableProps {
   table: string;
+  schema?: string;
   event?: 'INSERT' | 'UPDATE' | 'DELETE' | '*';
-  handler: DataChangeHandler;
+  handler: (payload: any) => void;
+  filter?: string;
+  filterValue?: any;
 }
 
-// Cache for active channels to prevent duplicates
-const activeChannels: Record<string, RealtimeChannel> = {};
-
-/**
- * Subscribe to real-time changes on a Supabase table
- */
 export function subscribeToTable({
   table,
+  schema = 'public',
   event = '*',
-  handler
-}: RealtimeSubscription): () => void {
+  handler,
+  filter,
+  filterValue,
+}: SubscribeToTableProps): () => void {
+  let channel: RealtimeChannel;
   
-  const channelKey = `${table}:${event}`;
-  
-  // Reuse existing channel if available
-  if (activeChannels[channelKey]) {
-    const existingChannel = activeChannels[channelKey];
-    // Use type assertion to bypass TypeScript error
-    (existingChannel.on as any)(
-      'postgres_changes',
-      { 
-        event: event, 
-        schema: 'public', 
-        table: table 
-      }, 
-      handler
-    );
-    
-    return () => {
-      existingChannel.unsubscribe();
-      delete activeChannels[channelKey];
+  try {
+    // Define the channel configuration
+    const channelConfig = {
+      event,
+      schema,
+      table,
     };
+    
+    // Add filter if provided
+    if (filter && filterValue !== undefined) {
+      Object.assign(channelConfig, { filter: `${filter}=eq.${filterValue}` });
+    }
+    
+    // Subscribe to the channel
+    channel = supabase
+      .channel('schema-db-changes')
+      .on(
+        'postgres_changes' as any,
+        channelConfig,
+        handler
+      )
+      .subscribe();
+      
+    // Return the unsubscribe function
+    return () => {
+      if (channel) supabase.removeChannel(channel);
+    };
+  } catch (error) {
+    console.error('Error subscribing to table:', error);
+    // Return a no-op function if there was an error
+    return () => {};
   }
-
-  // Create a new channel
-  const channel = supabase
-    .channel(`public:${table}:${event}`);
-  
-  // Use type assertion to bypass TypeScript error  
-  (channel.on as any)(
-    'postgres_changes',
-    { 
-      event: event, 
-      schema: 'public', 
-      table: table 
-    }, 
-    handler
-  ).subscribe();
-    
-  activeChannels[channelKey] = channel;
-    
-  // Return cleanup function
-  return () => {
-    supabase.removeChannel(channel);
-    delete activeChannels[channelKey];
-  };
 }
 
-/**
- * Subscribe to multiple tables with a single function
- */
-export function subscribeToMultipleTables(
-  subscriptions: RealtimeSubscription[]
-): () => void {
-  const unsubscribeFunctions = subscriptions.map(subscription => 
-    subscribeToTable(subscription)
-  );
-  
-  return () => {
-    unsubscribeFunctions.forEach(unsubscribe => unsubscribe());
-  };
+export function subscribeToUserPresence(roomId: string, userId: string, userInfo: any): () => void {
+  try {
+    const channel = supabase.channel(`presence-${roomId}`);
+    
+    channel
+      .on('presence', { event: 'sync' }, () => {
+        const state = channel.presenceState();
+        console.log('Presence sync:', state);
+      })
+      .on('presence', { event: 'join' }, ({ key, newPresences }) => {
+        console.log('User joined:', key, newPresences);
+      })
+      .on('presence', { event: 'leave' }, ({ key, leftPresences }) => {
+        console.log('User left:', key, leftPresences);
+      })
+      .subscribe(async (status) => {
+        if (status === 'SUBSCRIBED') {
+          await channel.track({
+            user_id: userId,
+            ...userInfo,
+            online_at: new Date().toISOString(),
+          });
+        }
+      });
+    
+    return () => {
+      if (channel) supabase.removeChannel(channel);
+    };
+  } catch (error) {
+    console.error('Error subscribing to presence:', error);
+    return () => {};
+  }
 }

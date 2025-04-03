@@ -15,11 +15,20 @@ interface StatCardProps {
   icon?: ReactNode;
   className?: string;
   style?: CSSProperties;
+  onClick?: () => void;
 }
 
-export function StatCard({ title, value, change, icon, className, style }: StatCardProps) {
+export function StatCard({ title, value, change, icon, className, style, onClick }: StatCardProps) {
   return (
-    <Card className={cn("dashboard-card card-hover overflow-hidden", className)} style={style}>
+    <Card 
+      className={cn(
+        "dashboard-card card-hover overflow-hidden transition-all duration-200", 
+        onClick && "cursor-pointer hover:scale-[1.01]",
+        className
+      )} 
+      style={style}
+      onClick={onClick}
+    >
       <CardContent className="p-4 relative">
         {/* Background gradient for visual interest instead of diamond shape */}
         <div className="absolute top-0 right-0 bottom-0 w-1/3 opacity-5 bg-gradient-to-l from-current to-transparent" />
@@ -30,9 +39,14 @@ export function StatCard({ title, value, change, icon, className, style }: StatC
             <p className="stat-value text-xl md:text-2xl">{value}</p>
             
             {change && (
-              <div className={change.direction === "up" ? "trend-up" : "trend-down"}>
+              <div className={cn(
+                "flex items-center gap-1",
+                change.direction === "up" ? "trend-up text-green-500" : "trend-down text-red-500"
+              )}>
                 {change.direction === "up" ? <ArrowUpRight className="h-4 w-4" /> : <ArrowDownRight className="h-4 w-4" />}
-                <span className="text-xs md:text-sm font-medium">{change.value} {change.period && <span className="text-muted-foreground text-xs">({change.period})</span>}</span>
+                <span className="text-xs md:text-sm font-medium">
+                  {change.value} {change.period && <span className="text-muted-foreground text-xs">({change.period})</span>}
+                </span>
               </div>
             )}
           </div>

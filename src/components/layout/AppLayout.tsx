@@ -39,12 +39,12 @@ export function AppLayout({ children }: AppLayoutProps) {
   return (
     <ThemeProvider>
       <SidebarProvider>
-        <div className="flex min-h-screen w-full flex-col lg:flex-row">
+        <div className="flex min-h-screen w-full flex-col lg:flex-row bg-background">
           <AppSidebar />
-          <div className="flex flex-col flex-1">
+          <div className="flex flex-col flex-1 w-full">
             <AppHeader title={title} />
             <main className="flex-1 overflow-auto">
-              <div className={`container mx-auto p-4 ${isMobile ? '' : 'p-6'}`}>
+              <div className={`container mx-auto ${isMobile ? 'px-3 py-3' : 'p-6'} max-w-[1600px]`}>
                 {children}
               </div>
             </main>
