@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { StatCard } from "@/components/dashboard/StatCard";
 import { ChartCard } from "@/components/dashboard/ChartCard";
@@ -6,7 +5,7 @@ import { LineAreaChart } from "@/components/charts/LineAreaChart";
 import { BarChart } from "@/components/charts/BarChart";
 import { ProgressTracker } from "@/components/dashboard/ProgressTracker";
 import { Button } from "@/components/ui/button";
-import { ShoppingCart, DollarSign, Percent, Mail, Loader2, ArrowRight, BrainCircuit, ShoppingBag, BarChart3, SmileIcon } from "lucide-react";
+import { ShoppingCart, DollarSign, Percent, Mail, Loader2, ArrowRight, BrainCircuit, ShoppingBag, BarChart3, SmileIcon, LayoutGrid as LayoutGridIcon } from "lucide-react";
 import { getAbandonedCarts, AbandonedCart, markCartAsRecovered } from "@/services/cartService";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
@@ -131,7 +130,7 @@ const Dashboard = () => {
           className={`rounded-none border-b-2 ${activeTab === 'overview' ? 'border-primary text-primary' : 'border-transparent'} px-4 py-2`}
           onClick={() => setActiveTab('overview')}
         >
-          <LayoutGrid className="h-4 w-4 mr-2" /> 
+          <LayoutGridIcon className="h-4 w-4 mr-2" /> 
           Overview
         </Button>
         <Button 
@@ -209,7 +208,6 @@ const Dashboard = () => {
             targetAmount={5000}
             prefix="$"
             className="animate-fade-in glass p-5 rounded-xl"
-            style={{ animationDelay: '0.5s' }}
           />
 
           {/* Charts and Activity Feed */}

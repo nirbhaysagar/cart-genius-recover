@@ -26,6 +26,7 @@ export default {
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
 				'glass-border': 'hsl(var(--glass-border))',
+				'card-glass': 'hsl(var(--card-glass))',
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
 					foreground: 'hsl(var(--primary-foreground))'
