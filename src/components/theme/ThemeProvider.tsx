@@ -48,8 +48,8 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     const newTheme = theme === "light" ? "dark" : "light";
     setTheme(newTheme);
     toast({
-      title: `${newTheme.charAt(0).toUpperCase() + newTheme.slice(1)} mode activated`,
-      description: `Your interface is now in ${newTheme} mode.`,
+      title: `${newTheme === "dark" ? "Dark" : "Light"} mode`,
+      description: `Interface switched to ${newTheme} mode appearance.`,
       duration: 2000,
     });
   };
@@ -69,12 +69,12 @@ export function ThemeToggle() {
       variant="ghost" 
       size="icon" 
       onClick={toggleTheme} 
-      className="theme-toggle transition-all hover:bg-primary/10"
+      className="theme-toggle bg-white/10 backdrop-blur-lg dark:bg-gray-800/30 rounded-full w-10 h-10 flex items-center justify-center transition-all hover:scale-105 hover:shadow-lg"
       aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}
     >
       {theme === 'light' ? 
-        <Moon className="h-5 w-5 transition-transform hover:rotate-12" /> : 
-        <Sun className="h-5 w-5 transition-transform hover:rotate-12" />
+        <Moon className="h-5 w-5 transition-transform hover:rotate-45" /> : 
+        <Sun className="h-5 w-5 transition-transform hover:rotate-45" />
       }
     </Button>
   );

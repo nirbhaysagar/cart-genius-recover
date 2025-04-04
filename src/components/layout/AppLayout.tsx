@@ -39,7 +39,7 @@ export function AppLayout({ children }: AppLayoutProps) {
   return (
     <ThemeProvider>
       <SidebarProvider>
-        <div className="flex min-h-screen w-full flex-col lg:flex-row bg-background">
+        <div className="flex min-h-screen w-full flex-col lg:flex-row bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
           <AppSidebar />
           <div className="flex flex-col flex-1 w-full">
             <AppHeader title={title} />

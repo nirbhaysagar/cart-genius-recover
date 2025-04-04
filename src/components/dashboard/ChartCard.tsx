@@ -32,14 +32,14 @@ export function ChartCard({
   const getPadding = () => {
     switch (padding) {
       case "none": return "p-0";
-      case "small": return "p-2 pb-1";
-      case "normal": return "p-4 pb-2";
-      default: return "p-4 pb-2";
+      case "small": return "p-3 pb-2";
+      case "normal": return "p-5 pb-3";
+      default: return "p-5 pb-3";
     }
   };
   
   return (
-    <Card className={cn("dashboard-card card-hover", className)} style={style}>
+    <Card className={cn("monterey-card dashboard-card hover:shadow-monterey-hover dark:hover:shadow-monterey-hover-dark", className)} style={style}>
       <CardHeader className={cn(getPadding(), "flex flex-row items-start justify-between", headerClassName)}>
         <div>
           <CardTitle className="text-base md:text-lg font-semibold">{title}</CardTitle>
@@ -51,7 +51,7 @@ export function ChartCard({
         {children}
       </CardContent>
       {footer && (
-        <div className="p-4 pt-2 border-t mt-auto">
+        <div className="p-5 pt-3 border-t mt-auto">
           {footer}
         </div>
       )}

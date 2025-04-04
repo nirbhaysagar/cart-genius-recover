@@ -22,21 +22,18 @@ export function StatCard({ title, value, change, icon, className, style, onClick
   return (
     <Card 
       className={cn(
-        "dashboard-card card-hover overflow-hidden transition-all duration-200", 
-        onClick && "cursor-pointer hover:scale-[1.01]",
+        "monterey-card dashboard-card overflow-hidden transition-all duration-300", 
+        onClick && "cursor-pointer hover:scale-[1.02]",
         className
       )} 
       style={style}
       onClick={onClick}
     >
-      <CardContent className="p-4 relative">
-        {/* Background gradient for visual interest instead of diamond shape */}
-        <div className="absolute top-0 right-0 bottom-0 w-1/3 opacity-5 bg-gradient-to-l from-current to-transparent" />
-        
+      <CardContent className="p-5 relative">
         <div className="flex justify-between items-start relative">
           <div className="space-y-2">
             <p className="stat-label text-xs md:text-sm">{title}</p>
-            <p className="stat-value text-xl md:text-2xl">{value}</p>
+            <p className="stat-value text-xl md:text-2xl font-semibold">{value}</p>
             
             {change && (
               <div className={cn(
@@ -52,7 +49,7 @@ export function StatCard({ title, value, change, icon, className, style, onClick
           </div>
           
           {icon && (
-            <div className="h-8 w-8 md:h-10 md:w-10 rounded-full bg-primary/10 flex items-center justify-center transform transition-transform hover:scale-110">
+            <div className="h-10 w-10 md:h-12 md:w-12 rounded-xl glass flex items-center justify-center transition-transform hover:scale-110">
               {icon}
             </div>
           )}

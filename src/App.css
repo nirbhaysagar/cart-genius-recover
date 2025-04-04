@@ -7,24 +7,24 @@
 
 /* CSS Variables for theme customization */
 :root {
-  --card-hover-y: -5px;
+  --card-hover-y: -6px;
   --transition-speed: 0.3s;
-  --shopify-success: #008060;
-  --shopify-warning: #ffc453;
-  --shopify-error: #d82c0d;
-  --shopify-surface: #f6f6f7;
+  --shopify-success: #00ad6a;
+  --shopify-warning: #ffbc5e;
+  --shopify-error: #e54545;
+  --apple-surface: #f5f5f7;
 }
 
 /* Page transitions */
 .page-enter {
   opacity: 0;
-  transform: translateY(8px);
+  transform: translateY(10px);
 }
 
 .page-enter-active {
   opacity: 1;
   transform: translateY(0);
-  transition: opacity 300ms, transform 300ms;
+  transition: opacity 300ms, transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .page-exit {
@@ -33,7 +33,7 @@
 
 .page-exit-active {
   opacity: 0;
-  transition: opacity 300ms;
+  transition: opacity 300ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Enhanced Card animations */
@@ -45,16 +45,16 @@
 .card-enter-active {
   opacity: 1;
   transform: scale(1) translateY(0);
-  transition: opacity 300ms, transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition: opacity 300ms, transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Chart animations */
 .chart-bar {
-  transition: height 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: height 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .chart-animate-in {
-  animation: chart-intro 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: chart-intro 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @keyframes chart-intro {
@@ -68,50 +68,63 @@
   }
 }
 
-/* Shopify-inspired utility classes */
-.shopify-container {
-  max-width: 1200px;
+/* macOS-inspired utility classes */
+.monterey-container {
+  max-width: 1300px;
   margin: 0 auto;
-  padding: 0 16px;
+  padding: 0 24px;
 }
 
-/* Shopify-inspired card styles */
-.shopify-card {
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 0 0 1px rgba(63, 63, 68, 0.05), 0 1px 3px 0 rgba(63, 63, 68, 0.15);
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
+/* macOS Big Sur/Monterey card style */
+.monterey-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 18px;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 4px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.shopify-card:hover {
-  box-shadow: 0 0 0 1px rgba(63, 63, 68, 0.05), 0 4px 8px 0 rgba(63, 63, 68, 0.15);
+.dark .monterey-card {
+  background: rgba(35, 38, 47, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 12px;
+}
+
+.monterey-card:hover {
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 8px 24px;
   transform: translateY(var(--card-hover-y));
+}
+
+.dark .monterey-card:hover {
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 8px 24px;
 }
 
 /* Enhanced dashboard cards */
 .dashboard-card {
-  @apply p-6 transition-all duration-300;
+  @apply transition-all duration-300 rounded-2xl;
 }
 
 .card-hover {
-  @apply hover:shadow-shopify-card-hover hover:-translate-y-1;
+  @apply hover:shadow-lg hover:-translate-y-1;
 }
 
-/* Status pills styling */
+/* Status pills styling - macOS style */
 .status-pill {
   @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium;
 }
 
 .status-pill-success {
-  @apply bg-shopify-50 text-shopify-700;
+  @apply bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300;
 }
 
 .status-pill-warning {
-  @apply bg-amber-50 text-amber-700;
+  @apply bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300;
 }
 
 .status-pill-neutral {
-  @apply bg-gray-100 text-gray-700;
+  @apply bg-gray-100 text-gray-800 dark:bg-gray-800/50 dark:text-gray-300;
 }
 
 /* Stats styling */
@@ -120,37 +133,37 @@
 }
 
 .stat-value {
-  @apply text-2xl font-bold tracking-tight;
+  @apply text-2xl font-semibold tracking-tight;
 }
 
 .trend-up {
-  @apply flex items-center text-green-600 gap-0.5;
+  @apply flex items-center text-green-600 gap-0.5 dark:text-green-400;
 }
 
 .trend-down {
-  @apply flex items-center text-red-600 gap-0.5;
+  @apply flex items-center text-red-600 gap-0.5 dark:text-red-400;
 }
 
-/* Table styling */
-.table-modern {
+/* Table styling - clean macOS inspired */
+.table-monterey {
   @apply w-full text-sm;
 }
 
-.table-modern th {
+.table-monterey th {
   @apply py-3 px-4 text-left font-medium text-muted-foreground border-b;
 }
 
-.table-modern td {
+.table-monterey td {
   @apply py-3 px-4 border-b border-muted align-middle;
 }
 
-.table-modern tr:hover {
+.table-monterey tr:hover {
   @apply bg-muted/50;
 }
 
 /* Button animations */
 .btn-shopify {
-  @apply bg-shopify hover:bg-shopify-600 text-white transition-colors;
+  @apply bg-primary hover:bg-primary/90 text-white transition-colors;
 }
 
 .btn-pulse {
@@ -159,23 +172,23 @@
 
 @keyframes button-pulse {
   0% {
-    box-shadow: 0 0 0 0 rgba(0, 128, 96, 0.4);
+    box-shadow: 0 0 0 0 rgba(0, 173, 106, 0.4);
   }
   70% {
-    box-shadow: 0 0 0 10px rgba(0, 128, 96, 0);
+    box-shadow: 0 0 0 10px rgba(0, 173, 106, 0);
   }
   100% {
-    box-shadow: 0 0 0 0 rgba(0, 128, 96, 0);
+    box-shadow: 0 0 0 0 rgba(0, 173, 106, 0);
   }
 }
 
 /* Progress bars */
 .progress-bar {
-  @apply h-2 rounded-full bg-gray-200 overflow-hidden;
+  @apply h-2 rounded-full bg-gray-100 dark:bg-gray-700 overflow-hidden;
 }
 
 .progress-bar-fill {
-  @apply h-full bg-shopify rounded-full animate-progress;
+  @apply h-full bg-primary rounded-full animate-progress;
 }
 
 /* Enhanced animations */
@@ -207,44 +220,29 @@
   }
 }
 
-/* Shopify theme toggle styles */
+/* macOS theme toggle styles */
 .theme-toggle {
-  @apply p-2 rounded-full hover:bg-muted transition-colors;
+  @apply p-2 rounded-full transition-colors bg-muted/50 hover:bg-muted;
 }
 
 /* Tooltip styles */
 .tooltip {
-  @apply invisible absolute z-50 rounded bg-neutral-900 px-2 py-1 text-xs text-white opacity-0 transition-opacity group-hover:visible group-hover:opacity-100 dark:bg-white dark:text-neutral-900;
+  @apply invisible absolute z-50 rounded-lg bg-neutral-900 px-2 py-1 text-xs text-white opacity-0 transition-opacity group-hover:visible group-hover:opacity-100 dark:bg-white dark:text-neutral-900;
 }
 
-/* Hover animation class */
-.hover-lift {
-  transition: transform var(--transition-speed) ease-in-out;
+/* macOS gradient background */
+.bg-monterey {
+  background: linear-gradient(135deg, hsl(var(--gradient-start)), hsl(var(--gradient-mid)), hsl(var(--gradient-end)));
 }
 
-.hover-lift:hover {
-  transform: translateY(-4px);
-}
-
-/* Shimmer effect for loading states */
-.shimmer {
-  background: linear-gradient(90deg, #f0f0f0 0%, #f8f8f8 50%, #f0f0f0 100%);
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
-}
-
-@keyframes shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
+/* Glassmorphism effect */
+.glass-effect {
+  @apply backdrop-blur-md bg-white/80 dark:bg-black/20 border border-white/20 dark:border-white/10;
 }
 
 /* Widget styles for drag-and-drop */
 .widget {
-  @apply rounded-lg border bg-card text-card-foreground shadow-sm;
+  @apply rounded-xl glass;
 }
 
 .widget-dragging {
@@ -253,4 +251,49 @@
 
 .widget-ghost {
   @apply bg-muted border-dashed;
+}
+
+/* Frosted glass container */
+.frosted-container {
+  @apply glass rounded-2xl border border-glass-border shadow-sm;
+}
+
+/* Activity feed styles */
+.activity-item {
+  @apply px-4 py-3 rounded-xl transition-colors hover:bg-secondary/50;
+}
+
+/* macOS button style */
+.button-monterey {
+  @apply rounded-full px-4 py-2 font-medium transition-all bg-gradient-to-b from-white/90 to-white/70 hover:from-white hover:to-white/80 text-gray-800 border border-gray-200/50 shadow-sm hover:shadow;
+}
+
+.dark .button-monterey {
+  @apply from-gray-800/90 to-gray-700/70 hover:from-gray-800 hover:to-gray-700/80 text-white border-gray-700/50;
+}
+
+/* Sentiment analysis tag styles */
+.sentiment-tag {
+  @apply inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium gap-1;
+}
+
+.sentiment-positive {
+  @apply bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300;
+}
+
+.sentiment-neutral {
+  @apply bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300;
+}
+
+.sentiment-negative {
+  @apply bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300;
+}
+
+/* Animations for flow */
+.hover-lift {
+  @apply transition-transform duration-200;
+}
+
+.hover-lift:hover {
+  @apply -translate-y-1;
 }

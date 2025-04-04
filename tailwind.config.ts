@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -24,6 +25,7 @@ export default {
 				ring: 'hsl(var(--ring))',
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
+				'glass-border': 'hsl(var(--glass-border))',
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
 					foreground: 'hsl(var(--primary-foreground))'
@@ -63,17 +65,17 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				shopify: {
-					DEFAULT: '#008060',
-					50: '#f3f9f6',
-					100: '#e6f2ec',
-					200: '#c1e0d0',
-					300: '#9ecdb3',
-					400: '#78b996',
-					500: '#52a479',
-					600: '#2c8e5c',
-					700: '#00693e',
-					800: '#004c2d',
-					900: '#00301c',
+					DEFAULT: '#00ad6a',
+					50: '#e6f7ef',
+					100: '#c1ebd9',
+					200: '#88d6b3',
+					300: '#4fc28c',
+					400: '#16ad66',
+					500: '#00ad6a',
+					600: '#009a5d',
+					700: '#008750',
+					800: '#006c41',
+					900: '#004d2e',
 				}
 			},
 			borderRadius: {
@@ -164,14 +166,30 @@ export default {
 				'progress': 'progress 1.5s ease-out forwards',
 			},
 			fontFamily: {
-				'inter': ['Inter', 'sans-serif'],
-				'shopify': ['"SF Pro Display"', '"SF Pro"', 'Inter', 'system-ui', 'sans-serif']
+				'sf-pro': ['"SF Pro Display"', '"SF Pro"', 'system-ui', 'sans-serif'],
+				'sf-mono': ['"SF Mono"', 'monospace'],
+			},
+			backdropBlur: {
+				'xs': '2px',
+				'sm': '4px',
+				DEFAULT: '8px',
+				'lg': '12px',
+				'xl': '16px',
+				'2xl': '24px',
+				'3xl': '32px',
 			},
 			boxShadow: {
+				'monterey': '0 2px 14px rgba(0, 0, 0, 0.06)',
+				'monterey-dark': '0 2px 14px rgba(0, 0, 0, 0.25)',
+				'monterey-hover': '0 4px 20px rgba(0, 0, 0, 0.1)',
+				'monterey-hover-dark': '0 4px 20px rgba(0, 0, 0, 0.3)',
+				'monterey-active': '0 1px 3px rgba(0, 0, 0, 0.08)',
+				'card-monterey': '0 2px 14px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.03)',
+				'card-monterey-dark': '0 2px 14px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.05)',
 				'shopify-card': '0 0 0 1px rgba(63, 63, 68, 0.05), 0 1px 3px 0 rgba(63, 63, 68, 0.15)',
 				'shopify-card-hover': '0 0 0 1px rgba(63, 63, 68, 0.05), 0 3px 6px 0 rgba(63, 63, 68, 0.15)',
-				'shopify-highlight': '0 0 0 2px #008060',
-				'shopify-glow': '0 0 15px rgba(0, 128, 96, 0.5)'
+				'shopify-highlight': '0 0 0 2px #00ad6a',
+				'shopify-glow': '0 0 15px rgba(0, 173, 106, 0.5)'
 			}
 		}
 	},

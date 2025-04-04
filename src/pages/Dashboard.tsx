@@ -6,7 +6,7 @@ import { LineAreaChart } from "@/components/charts/LineAreaChart";
 import { BarChart } from "@/components/charts/BarChart";
 import { ProgressTracker } from "@/components/dashboard/ProgressTracker";
 import { Button } from "@/components/ui/button";
-import { ShoppingCart, DollarSign, Percent, Mail, Loader2, ArrowRight, BrainCircuit } from "lucide-react";
+import { ShoppingCart, DollarSign, Percent, Mail, Loader2, ArrowRight, BrainCircuit, ShoppingBag, BarChart3, SmileIcon } from "lucide-react";
 import { getAbandonedCarts, AbandonedCart, markCartAsRecovered } from "@/services/cartService";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
@@ -15,6 +15,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { subscribeToTable } from "@/services/realtimeService";
 import { SmartDiscount } from "@/components/discounting/SmartDiscount";
+import { SentimentAnalysis } from "@/components/analytics/SentimentAnalysis";
 
 const Dashboard = () => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -123,26 +124,35 @@ const Dashboard = () => {
 
   return (
     <div className="space-y-6 md:space-y-8 page-transition">
-      {/* Tabs for switching between Overview and Smart Discounting */}
+      {/* Tabs for switching between Overview, Smart Discounting, and Sentiment Analysis */}
       <div className="flex overflow-x-auto scrollbar-hide border-b pb-1 mb-2">
         <Button 
           variant="ghost" 
-          className={`rounded-none border-b-2 ${activeTab === 'overview' ? 'border-shopify text-shopify' : 'border-transparent'} px-4 py-2`}
+          className={`rounded-none border-b-2 ${activeTab === 'overview' ? 'border-primary text-primary' : 'border-transparent'} px-4 py-2`}
           onClick={() => setActiveTab('overview')}
         >
+          <LayoutGrid className="h-4 w-4 mr-2" /> 
           Overview
         </Button>
         <Button 
           variant="ghost" 
-          className={`rounded-none border-b-2 ${activeTab === 'discounting' ? 'border-shopify text-shopify' : 'border-transparent'} px-4 py-2 flex items-center gap-1`}
+          className={`rounded-none border-b-2 ${activeTab === 'discounting' ? 'border-primary text-primary' : 'border-transparent'} px-4 py-2 flex items-center gap-1`}
           onClick={() => setActiveTab('discounting')}
         >
-          <BrainCircuit className="h-4 w-4" /> 
+          <BrainCircuit className="h-4 w-4 mr-1" /> 
           Smart Discounting
+        </Button>
+        <Button 
+          variant="ghost" 
+          className={`rounded-none border-b-2 ${activeTab === 'sentiment' ? 'border-primary text-primary' : 'border-transparent'} px-4 py-2 flex items-center gap-1`}
+          onClick={() => setActiveTab('sentiment')}
+        >
+          <SmileIcon className="h-4 w-4 mr-1" /> 
+          Sentiment Analysis
         </Button>
       </div>
 
-      {activeTab === 'overview' ? (
+      {activeTab === 'overview' && (
         <>
           {/* CTA Section */}
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 section-transition">
@@ -150,19 +160,19 @@ const Dashboard = () => {
               <h2 className="text-xl md:text-2xl font-bold tracking-tight">Welcome back</h2>
               <p className="text-muted-foreground text-sm md:text-base">Here's an overview of your cart recovery performance.</p>
             </div>
-            <Button size={isMobile ? "default" : "lg"} className="btn-shopify group whitespace-nowrap">
+            <Button variant="monterey" size={isMobile ? "default" : "lg"} className="group whitespace-nowrap hover-lift">
               Create Recovery Campaign
               <ArrowRight className="ml-1 transition-transform duration-300 group-hover:translate-x-1" />
             </Button>
           </div>
 
           {/* Stats Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 lg:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 lg:gap-6">
             <StatCard 
               title="Abandoned Carts"
               value={loading ? "Loading..." : stats.totalCarts.toString()} 
               change={{ value: "12%", direction: "up", period: "vs. last month" }}
-              icon={<ShoppingCart className="h-5 w-5 text-shopify" />}
+              icon={<ShoppingCart className="h-5 w-5 text-primary" />}
               className="animate-fade-in" 
               style={{ animationDelay: '0.1s' }}
             />
@@ -170,7 +180,7 @@ const Dashboard = () => {
               title="Recovery Rate"
               value={loading ? "Loading..." : `${stats.recoveryRate.toFixed(1)}%`} 
               change={{ value: "4%", direction: "up", period: "vs. last month" }}
-              icon={<Percent className="h-5 w-5 text-shopify" />}
+              icon={<Percent className="h-5 w-5 text-primary" />}
               className="animate-fade-in"
               style={{ animationDelay: '0.2s' }}
             />
@@ -178,7 +188,7 @@ const Dashboard = () => {
               title="Revenue Recovered"
               value={loading ? "Loading..." : `$${stats.revenueRecovered.toFixed(2)}`} 
               change={{ value: "8%", direction: "up", period: "vs. last month" }}
-              icon={<DollarSign className="h-5 w-5 text-shopify" />}
+              icon={<DollarSign className="h-5 w-5 text-primary" />}
               className="animate-fade-in"
               style={{ animationDelay: '0.3s' }}
             />
@@ -186,7 +196,7 @@ const Dashboard = () => {
               title="Email Open Rate"
               value={loading ? "Loading..." : `${stats.emailOpenRate.toFixed(1)}%`} 
               change={{ value: "2%", direction: "down", period: "vs. last month" }}
-              icon={<Mail className="h-5 w-5 text-shopify" />}
+              icon={<Mail className="h-5 w-5 text-primary" />}
               className="animate-fade-in"
               style={{ animationDelay: '0.4s' }}
             />
@@ -198,7 +208,7 @@ const Dashboard = () => {
             currentAmount={stats.revenueRecovered}
             targetAmount={5000}
             prefix="$"
-            className="animate-fade-in"
+            className="animate-fade-in glass p-5 rounded-xl"
             style={{ animationDelay: '0.5s' }}
           />
 
@@ -215,7 +225,7 @@ const Dashboard = () => {
                   data={cartTrendData}
                   areas={[
                     { dataKey: "abandoned", name: "Abandoned Carts", color: "#f97316" },
-                    { dataKey: "recovered", name: "Recovered Carts", color: "#008060" }
+                    { dataKey: "recovered", name: "Recovered Carts", color: "#00ad6a" }
                   ]}
                   height={isMobile ? 250 : 300}
                 />
@@ -230,7 +240,7 @@ const Dashboard = () => {
                 <BarChart
                   data={channelData}
                   bars={[
-                    { dataKey: "recovery", name: "Recovery Rate %", color: "#008060" },
+                    { dataKey: "recovery", name: "Recovery Rate %", color: "#00ad6a" },
                   ]}
                   height={isMobile ? 200 : 250}
                 />
@@ -238,49 +248,51 @@ const Dashboard = () => {
             </div>
 
             {/* Recent Activity Feed */}
-            <Card className="animate-fade-in h-fit" style={{ animationDelay: '0.7s' }}>
-              <div className="p-4 md:p-6 space-y-4">
+            <Card className="animate-fade-in monterey-card h-fit" style={{ animationDelay: '0.7s' }}>
+              <div className="p-5 md:p-6 space-y-4">
                 <h3 className="text-lg font-semibold">Recent Activity</h3>
                 
                 <div className="space-y-3">
                   {recentActivity.map((activity, index) => (
                     <div 
                       key={index} 
-                      className="flex items-center p-3 rounded-md border border-border hover:bg-secondary/50 transition-colors animate-slide-in" 
+                      className="activity-item border border-glass-border animate-slide-in" 
                       style={{ animationDelay: `${0.1 * index}s` }}
                     >
-                      <div className={`w-9 h-9 md:w-10 md:h-10 rounded-full flex items-center justify-center mr-3 ${
-                        activity.type === 'recovery' 
-                          ? 'bg-shopify-100 text-shopify-700' 
-                          : activity.type === 'abandon' 
-                            ? 'bg-amber-100 text-amber-800'
-                            : 'bg-blue-100 text-blue-700'
-                      }`}>
-                        {activity.type === 'recovery' && <DollarSign className="h-4 w-4 md:h-5 md:w-5" />}
-                        {activity.type === 'abandon' && <ShoppingCart className="h-4 w-4 md:h-5 md:w-5" />}
-                        {activity.type === 'email_open' && <Mail className="h-4 w-4 md:h-5 md:w-5" />}
-                      </div>
-                      
-                      <div className="flex-1 min-w-0">
-                        <p className="font-medium text-sm md:text-base truncate">
-                          {activity.type === 'recovery' && 'Cart Recovered'}
-                          {activity.type === 'abandon' && 'Cart Abandoned'}
-                          {activity.type === 'email_open' && 'Recovery Email Opened'}
-                        </p>
-                        <div className="flex flex-col md:flex-row md:justify-between md:items-center text-xs md:text-sm text-muted-foreground">
-                          <span className="truncate">{activity.email}</span>
-                          <span className="whitespace-nowrap">{activity.time}</span>
+                      <div className="flex items-start gap-3">
+                        <div className={`w-9 h-9 md:w-10 md:h-10 rounded-xl glass flex items-center justify-center ${
+                          activity.type === 'recovery' 
+                            ? 'text-green-500' 
+                            : activity.type === 'abandon' 
+                              ? 'text-amber-500'
+                              : 'text-blue-500'
+                        }`}>
+                          {activity.type === 'recovery' && <DollarSign className="h-4 w-4 md:h-5 md:w-5" />}
+                          {activity.type === 'abandon' && <ShoppingCart className="h-4 w-4 md:h-5 md:w-5" />}
+                          {activity.type === 'email_open' && <Mail className="h-4 w-4 md:h-5 md:w-5" />}
                         </div>
+                        
+                        <div className="flex-1 min-w-0">
+                          <p className="font-medium text-sm md:text-base truncate">
+                            {activity.type === 'recovery' && 'Cart Recovered'}
+                            {activity.type === 'abandon' && 'Cart Abandoned'}
+                            {activity.type === 'email_open' && 'Recovery Email Opened'}
+                          </p>
+                          <div className="flex flex-col md:flex-row md:justify-between md:items-center text-xs md:text-sm text-muted-foreground">
+                            <span className="truncate">{activity.email}</span>
+                            <span className="whitespace-nowrap">{activity.time}</span>
+                          </div>
+                        </div>
+                        
+                        <Badge variant={activity.type === 'recovery' ? 'default' : 'secondary'} className="ml-2 whitespace-nowrap rounded-full">
+                          {activity.value}
+                        </Badge>
                       </div>
-                      
-                      <Badge variant={activity.type === 'recovery' ? 'default' : 'secondary'} className="ml-2 whitespace-nowrap">
-                        {activity.value}
-                      </Badge>
                     </div>
                   ))}
                 </div>
 
-                <Button variant="outline" className="w-full mt-2 text-shopify hover:text-shopify-700 hover:bg-shopify-50">
+                <Button variant="monterey" className="w-full mt-2 hover-lift">
                   View All Activity
                 </Button>
               </div>
@@ -291,18 +303,18 @@ const Dashboard = () => {
           <div className="animate-fade-in" style={{ animationDelay: '0.8s' }}>
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-lg font-semibold">Recent Abandoned Carts</h3>
-              <Button variant="outline" size="sm" className="text-shopify hover:text-shopify-700 hover:bg-shopify-50">
+              <Button variant="outline" size="sm" className="rounded-full">
                 View All
               </Button>
             </div>
-            <div className="rounded-md border shadow-shopify-card overflow-hidden">
+            <Card className="monterey-card overflow-hidden">
               {loading ? (
                 <div className="flex justify-center items-center py-8">
-                  <Loader2 className="h-8 w-8 animate-spin text-shopify" />
+                  <Loader2 className="h-8 w-8 animate-spin text-primary" />
                 </div>
               ) : (
                 <div className="overflow-x-auto">
-                  <table className="table-modern w-full">
+                  <table className="table-monterey w-full">
                     <thead className="bg-muted/30">
                       <tr>
                         <th>Customer</th>
@@ -318,7 +330,7 @@ const Dashboard = () => {
                         carts.slice(0, 5).map((cart, index) => (
                           <tr 
                             key={cart.id}
-                            className="animate-slide-in"
+                            className="animate-slide-in hover:bg-muted/20"
                             style={{ animationDelay: `${0.1 * index}s` }}
                           >
                             <td className="truncate max-w-[120px] md:max-w-none">{cart.user_email}</td>
@@ -351,7 +363,7 @@ const Dashboard = () => {
                                 size="sm"
                                 onClick={() => handleRecoverCart(cart.id)}
                                 disabled={cart.recovered}
-                                className={cart.recovered ? "" : "hover:bg-shopify-50 hover:text-shopify-700 hover:border-shopify-700"}
+                                className={`rounded-full ${cart.recovered ? "" : "hover:bg-primary/10 hover:text-primary hover:border-primary"}`}
                               >
                                 {cart.recovered ? "Recovered" : "Mark"}
                               </Button>
@@ -369,13 +381,14 @@ const Dashboard = () => {
                   </table>
                 </div>
               )}
-            </div>
+            </Card>
           </div>
         </>
-      ) : (
-        // Smart Discounting Tab Content
-        <SmartDiscount />
       )}
+
+      {activeTab === 'discounting' && <SmartDiscount />}
+      
+      {activeTab === 'sentiment' && <SentimentAnalysis />}
     </div>
   );
 };

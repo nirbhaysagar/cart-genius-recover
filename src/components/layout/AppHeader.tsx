@@ -1,6 +1,6 @@
 
 import React from "react";
-import { Bell, Search } from "lucide-react";
+import { Bell, Search, ShoppingCart } from "lucide-react";
 import { 
   DropdownMenu,
   DropdownMenuContent,
@@ -14,8 +14,8 @@ import { ThemeToggle } from "@/components/theme/ThemeProvider";
 
 export function AppHeader({ title }: { title: string }) {
   return (
-    <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="flex h-14 items-center px-4 lg:px-6">
+    <header className="border-b bg-white/70 backdrop-blur-xl supports-[backdrop-filter]:bg-white/60 dark:bg-gray-900/50 dark:border-gray-800">
+      <div className="flex h-16 items-center px-4 lg:px-6">
         <SidebarTrigger className="lg:hidden" />
         
         <div className="flex items-center gap-2 lg:hidden">
@@ -26,13 +26,19 @@ export function AppHeader({ title }: { title: string }) {
         
         <div className="ml-auto flex items-center gap-4">
           <div className="hidden md:flex relative w-60">
-            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+            <Search className="absolute left-3.5 top-2.5 h-4 w-4 text-muted-foreground" />
             <Input
               type="search"
               placeholder="Search..."
-              className="w-full pl-8"
+              className="w-full pl-10 rounded-full glass h-10"
             />
           </div>
+          
+          <Button variant="ghost" size="icon" className="relative hover:bg-muted/50">
+            <ShoppingCart className="h-5 w-5" />
+            <span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-primary"></span>
+            <span className="sr-only">Shopping Cart</span>
+          </Button>
           
           <ThemeToggle />
           
@@ -44,7 +50,7 @@ export function AppHeader({ title }: { title: string }) {
                 <span className="sr-only">Notifications</span>
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-80 shadow-lg backdrop-blur-sm">
+            <DropdownMenuContent align="end" className="w-80 glass shadow-lg backdrop-blur-xl">
               <div className="p-4 border-b">
                 <p className="text-sm font-semibold">Notifications</p>
               </div>
@@ -63,6 +69,10 @@ export function AppHeader({ title }: { title: string }) {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
+          
+          <div className="h-8 w-8 rounded-full bg-muted flex items-center justify-center">
+            <span className="text-xs font-medium">JS</span>
+          </div>
         </div>
       </div>
     </header>
