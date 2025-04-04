@@ -242,7 +242,7 @@
 
 /* Widget styles for drag-and-drop */
 .widget {
-  @apply rounded-xl glass;
+  @apply rounded-xl backdrop-blur-md bg-white/80 dark:bg-black/20 border border-white/20 dark:border-white/10;
 }
 
 .widget-dragging {
@@ -255,7 +255,7 @@
 
 /* Frosted glass container */
 .frosted-container {
-  @apply glass rounded-2xl border border-glass-border shadow-sm;
+  @apply backdrop-blur-md bg-white/80 dark:bg-black/20 border border-white/20 dark:border-white/10 rounded-2xl shadow-sm;
 }
 
 /* Activity feed styles */

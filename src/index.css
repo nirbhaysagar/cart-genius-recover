@@ -142,10 +142,12 @@
   .element-transition {
     @apply transition-all duration-200 ease-in-out;
   }
-  
+}
+
+@layer components {
   /* Glassmorphism utilities */
   .glass {
-    @apply backdrop-blur-md bg-card-glass border border-glass-border shadow-sm;
+    @apply backdrop-blur-md bg-white/80 dark:bg-black/20 border border-white/20 dark:border-white/10 shadow-sm;
   }
   
   .glass-hover {
@@ -154,7 +156,7 @@
   
   /* macOS-style card */
   .macos-card {
-    @apply glass rounded-xl p-4 border border-glass-border;
+    @apply glass rounded-xl p-4 border border-white/20 dark:border-white/10;
   }
 }
 
